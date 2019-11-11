@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Mustard Seed</string>
     <string name="title_activity_calendar">CalendarActivity</string>
+    <string name="readSwitch">Reading Complete?</string>
 </resources>
