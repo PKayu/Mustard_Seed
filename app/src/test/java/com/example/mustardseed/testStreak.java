@@ -11,7 +11,7 @@ public class testStreak {
 //        currentStreak.updateStreak(1);
 //
 //        assertEquals(2,currentStreak.getCurrentStreak)
-     assertEquals(true,compareStreak(1,1));
+     //assertEquals(true,compareStreak(1,1));
 
     }
 

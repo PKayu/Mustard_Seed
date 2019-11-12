@@ -10,4 +10,8 @@
     <string name="setTime">Set Time</string>
     <string name="fullName">Full Name</string>
     <string name="time">Time</string>
+    <string name="title_activity_create_goal">Create Goal</string>
+    <string name="numDays">How many days a week?</string>
+    <string name="startDate">Start Date</string>
+    <string name="endDate">End Date</string>
 </resources>
