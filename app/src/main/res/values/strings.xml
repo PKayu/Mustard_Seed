@@ -3,4 +3,11 @@
     <string name="title_activity_calendar">CalendarActivity</string>
     <string name="readSwitch">Reading Complete?</string>
     <string name="changeGoal">Change Goal</string>
+    <string name="name">Name</string>
+    <string name="favScripture">Favorite Scripture</string>
+    <string name="notificationHdr">Notifications</string>
+    <string name="enabled">Enabled</string>
+    <string name="setTime">Set Time</string>
+    <string name="fullName">Full Name</string>
+    <string name="time">Time</string>
 </resources>
