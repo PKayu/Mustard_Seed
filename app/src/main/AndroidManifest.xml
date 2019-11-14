@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity_create_goal"></activity>
+        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".activity_create_goal" />
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".CalendarActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

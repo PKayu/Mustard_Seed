@@ -12,7 +12,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        loadUser();
+        //loadUser();
     }
 
     String _fullName;
@@ -37,6 +37,6 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        this.saveUser();
+        //this.saveUser();
     }
 }

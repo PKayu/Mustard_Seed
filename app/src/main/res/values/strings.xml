@@ -14,4 +14,6 @@
     <string name="numDays">How many days a week?</string>
     <string name="startDate">Start Date</string>
     <string name="endDate">End Date</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_closed">Close navigation drawer</string>
 </resources>
