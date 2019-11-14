@@ -73,10 +73,10 @@
         android:id="@+id/switchEnabled"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@+id/tvEnabled"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.75"
-        app:layout_constraintStart_toEndOf="@+id/tvEnabled"
-        tools:layout_editor_absoluteY="232dp" />
+        app:layout_constraintStart_toEndOf="@+id/tvEnabled" />
 
     <EditText
         android:id="@+id/etNotifTime"
