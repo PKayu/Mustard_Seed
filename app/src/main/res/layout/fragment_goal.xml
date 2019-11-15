@@ -3,32 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity_create_goal">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/createGoalToolBar"
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:layout_height="match_parent">
 
     <EditText
         android:id="@+id/numDays"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:autofillHints=""
         android:ems="10"
         android:inputType="number"
         android:text="@string/numDays"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/createGoalToolBar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/startDate"
@@ -56,26 +44,29 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startDate" />
 
-    <Button
-        android:id="@+id/setGoal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Set Goal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="440dp" />
-
     <TextView
         android:id="@+id/forceCompleteGoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:text="Force Complete"
         android:textColor="#009688"
         android:textIsSelectable="true"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/endDate" />
+
+    <Button
+        android:id="@+id/setGoal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Set Goal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/forceCompleteGoal" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
