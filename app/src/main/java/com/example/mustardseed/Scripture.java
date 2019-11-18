@@ -51,6 +51,6 @@ public class Scripture {
     @NonNull
     @Override
     public String toString() {
-        return _book + " " + _chapter + ":" + _verse;
+        return _standWork + " " + _book + " " + _chapter + ":" + _verse;
     }
 }

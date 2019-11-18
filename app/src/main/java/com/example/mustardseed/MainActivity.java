@@ -19,6 +19,7 @@ import com.google.android.material.snackbar.Snackbar;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    private int previousGoalId = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

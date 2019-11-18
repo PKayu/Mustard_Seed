@@ -1,6 +1,7 @@
 package com.example.mustardseed;
 
 import android.view.View;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Goal {
     private int numDays;
@@ -75,7 +76,7 @@ public class Goal {
 
     }
 
-    public void endGoal(){
+    public void endGoal(View view){
         this.isComplete = true;
     }
 
