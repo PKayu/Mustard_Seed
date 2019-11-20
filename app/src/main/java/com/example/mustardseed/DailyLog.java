@@ -34,4 +34,5 @@ public class DailyLog {
     public void setLastRead(Scripture lastRead) {
         this._lastRead = lastRead;
     }
+
 }
