@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/etFavScripture5"
+        android:id="@+id/etFavScripture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -24,7 +24,7 @@
         android:layout_marginStart="16dp"
         android:text="@string/favScripture"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etFavScripture5" />
+        app:layout_constraintTop_toBottomOf="@+id/etFavScripture" />
 
     <TextView
         android:id="@+id/tvName6"
@@ -33,10 +33,10 @@
         android:layout_marginStart="16dp"
         android:text="@string/name"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etFullName5" />
+        app:layout_constraintTop_toBottomOf="@+id/etFullName" />
 
     <EditText
-        android:id="@+id/etFullName5"
+        android:id="@+id/etFullName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -96,4 +96,15 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvFavScripture5" />
+
+    <Button
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:onClick="saveUser"
+        android:text="@android:string/yes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEnabled6" />
 </androidx.constraintlayout.widget.ConstraintLayout>

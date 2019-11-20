@@ -1,8 +1,10 @@
 package com.example.mustardseed;
 
+import android.content.SharedPreferences;
+
 public class User {
     private String name;
-    private Scripture favScripture;
+    private String favScripture;
 
     public String getName() {
         return name;
@@ -12,16 +14,17 @@ public class User {
         this.name = name;
     }
 
-    public Scripture getFavScripture() {
+    public String getFavScripture() {
         return favScripture;
     }
 
-    public void setFavScripture(Scripture favScripture) {
+    public void setFavScripture(String favScripture) {
         this.favScripture = favScripture;
     }
 
-    public User(String name, Scripture favScripture) {
+    public User(String name, String favScripture) {
         this.name = name;
         this.favScripture = favScripture;
     }
+
 }
