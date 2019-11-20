@@ -1,6 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
@@ -31,6 +35,9 @@ dependencies {
         transitive = true
         exclude group: 'com.android.support'
     }
+    // Used for highlight-able calendarView
+    implementation 'com.applandeo:material-calendar-view:1.7.0'
+
     implementation 'androidx.navigation:navigation-fragment:2.0.0'
     implementation 'androidx.navigation:navigation-ui:2.1.0'
 
