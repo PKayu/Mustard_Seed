@@ -37,6 +37,7 @@
         app:datePicker="true"
         app:selectionColor="@color/colorAccent"
         app:todayLabelColor="@color/colorPrimaryDark"
+        app:highlightedDaysLabelsColor="@color/md_green_A700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
