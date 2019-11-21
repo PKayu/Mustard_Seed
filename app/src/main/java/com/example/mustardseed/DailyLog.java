@@ -1,21 +1,23 @@
 package com.example.mustardseed;
 
+import java.util.Date;
+
 public class DailyLog {
 
-    private long _logDate;
+    private Date _logDate;
     private boolean _isCompleted;
     private Scripture _lastRead;
 
-    public DailyLog(long date, boolean isComplete){
+    public DailyLog(Date date, boolean isComplete){
         this._logDate = date;
         this._isCompleted = isComplete;
     }
 
-    public long getLogDate() {
+    public Date getLogDate() {
         return _logDate;
     }
 
-    public void setLogDate(long date) {
+    public void setLogDate(Date date) {
         this._logDate = date;
     }
 
