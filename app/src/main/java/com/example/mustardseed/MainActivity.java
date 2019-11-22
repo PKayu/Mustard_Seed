@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         User user = new User(sFullName, sFavScripture);
 
-        SharedPreferences sharedPref = view.getContext().getSharedPreferences("FileName", Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = view.getContext().getSharedPreferences("prefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor prefEditor = sharedPref.edit();
         prefEditor.putString("user", user.toString());
         prefEditor.commit();
