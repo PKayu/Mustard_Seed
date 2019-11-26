@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private int previousGoalId = 0;
+    public int DATE_DIALOG = 0;
 //    private CalendarView _CalendarView;
 //    private List<EventDay> _loggedDays = new ArrayList<>();
 
