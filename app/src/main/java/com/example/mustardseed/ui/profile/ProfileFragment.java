@@ -64,19 +64,24 @@ public class ProfileFragment extends Fragment {
         User user = gson.fromJson(gUser,User.class);
         Notification notification = gson.fromJson(gNotification, Notification.class);
 
-        Log.i(TAG, "Load stored preferences");
-        _etFullName.setText(user.getName());
-        _etFavScripture.setText(user.getFavScripture());
-        _notifEnabled.setChecked(user.isNotificationEnabled());
-        _etNotification.setText(notification.getHour() + ":" + String.format("%02d", notification.getMinute()));
-        Log.i(TAG, "Finish loading stored preferences");
+        if(user != null) {
+            Log.i(TAG, "Load stored preferences");
+            _etFullName.setText(user.getName());
+            _etFavScripture.setText(user.getFavScripture());
+            _notifEnabled.setChecked(user.isNotificationEnabled());
+
+            Log.i(TAG, "Finish loading stored preferences");
+        }
+        if(notification != null){
+            _etNotification.setText(notification.getHour() + ":" + String.format("%02d", notification.getMinute()));
+        }
+
 
         return root;
     }
 
     public void onSaveClick(View view){
         Log.i("ProfileFragment", "Save clicked");
-        Toast.makeText(view.getContext().getApplicationContext(),"Button Clicked!", Toast.LENGTH_LONG).show();
 
         String sFullName = _etFullName.getText().toString();
         String sFavScripture = _etFavScripture.getText().toString();
