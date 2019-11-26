@@ -56,6 +56,7 @@ public class ProfileFragment extends Fragment {
         _btnSave.setOnClickListener(this::onSaveClick);
         _etNotification.setOnClickListener(this::showTimePickerDialog);
 
+
         SharedPreferences preferences = this.getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
         String gUser = preferences.getString("user", null);
         String gNotification = preferences.getString("notification", null);
