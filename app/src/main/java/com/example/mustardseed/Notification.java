@@ -1,17 +1,19 @@
 package com.example.mustardseed;
 
 public class Notification {
-    private long notfiTime;
+
+
+    private int hour;
+    private int minute;
     private String message;
-    private boolean isEnabled;
 
-    public long getNotfiTime() {
-        return notfiTime;
-    }
+    public int getHour() { return hour; }
 
-    public void setNotfiTime(long notfiTime) {
-        this.notfiTime = notfiTime;
-    }
+    public void setHour(int hour) { this.hour = hour; }
+
+    public int getMinute() { return minute; }
+
+    public void setMinute(int minute) { this.minute = minute; }
 
     public String getMessage() {
         return message;
@@ -21,11 +23,8 @@ public class Notification {
         this.message = message;
     }
 
-    public boolean isEnabled() {
-        return isEnabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
+    public Notification(int hour, int minute) {
+        this.hour = hour;
+        this.minute = minute;
     }
 }

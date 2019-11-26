@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -72,23 +73,4 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-
-
-    //ProfileFragment OnClick
-    public void saveUser(View view){
-        Log.i("ProfileFragment", "Save clicked");
-        EditText fullName = view.findViewById(R.id.etFullName);
-        String sFullName = fullName.getText().toString();
-        EditText favScripture = view.findViewById(R.id.etFavScripture);
-        String sFavScripture = favScripture.getText().toString();
-
-        User user = new User(sFullName, sFavScripture);
-
-        SharedPreferences sharedPref = view.getContext().getSharedPreferences("prefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor prefEditor = sharedPref.edit();
-        prefEditor.putString("user", user.toString());
-        prefEditor.commit();
-        Toast.makeText(view.getContext().getApplicationContext(),"Your profile has been saved successfully", Toast.LENGTH_LONG).show();
-    }
-
 }
