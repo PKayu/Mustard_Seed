@@ -18,15 +18,21 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.mustardseed.DatePickerFragment;
+import com.example.mustardseed.StartDatePickerFragment;
+import com.example.mustardseed.EndDatePickerFragment;
 import com.example.mustardseed.MainActivity;
 import com.example.mustardseed.R;
+import com.example.mustardseed.StartDatePickerFragment;
 
 import org.w3c.dom.Text;
 
 import java.time.Month;
 import java.util.Calendar;
 
+/**
+ * @author Ashley and Dan and Jacob
+ * This class will create the goal, call to date picker and save the info to the user preferences.
+ */
 public class GoalFragment extends Fragment {
 
     private static final String TAG = "GoalFragment";
@@ -37,6 +43,13 @@ public class GoalFragment extends Fragment {
 
     private GoalViewModel goalViewModel;
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         goalViewModel =
@@ -53,14 +66,18 @@ public class GoalFragment extends Fragment {
         return root;
     }
 
+    /**
+     *
+     * @param v
+     */
     public void showStartDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
+        DialogFragment newFragment = new StartDatePickerFragment();
 
         newFragment.show(this.getActivity().getSupportFragmentManager(), "startPicker");
     }
 
     public void showEndDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
+        DialogFragment newFragment = new EndDatePickerFragment();
         newFragment.show(this.getActivity().getSupportFragmentManager(), "endPicker");
     }
 }
