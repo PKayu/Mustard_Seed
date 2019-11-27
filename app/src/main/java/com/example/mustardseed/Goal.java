@@ -1,17 +1,16 @@
 package com.example.mustardseed;
 
 import android.view.View;
-import androidx.appcompat.app.AppCompatActivity;
 
 public class Goal {
-    private int numDays;
-    private long startGoal;
-    private long endGoal;
+    private String numDays;
+    private String startGoal;
+    private String endGoal;
     private boolean isComplete;
     private int goalID;
 //    private int currentGoal = 0;
 
-    public Goal(int numDays, long startGoal, long endGoal) {
+    public Goal(String numDays, String startGoal, String endGoal) {
         this.numDays = numDays;
         this.startGoal = startGoal;
         this.endGoal = endGoal;
@@ -19,27 +18,27 @@ public class Goal {
         this.goalID = this.getNewGoalID();
     }
 
-    public int getNumDays() {
+    public String getNumDays() {
         return numDays;
     }
 
-    public void setNumDays(int numDays) {
+    public void setNumDays(String numDays) {
         this.numDays = numDays;
     }
 
-    public long getStartGoal() {
+    public String getStartGoal() {
         return startGoal;
     }
 
-    public void setStartGoal(long startGoal) {
+    public void setStartGoal(String startGoal) {
         this.startGoal = startGoal;
     }
 
-    public long getEndGoal() {
+    public String getEndGoal() {
         return endGoal;
     }
 
-    public void setEndGoal(long endGoal) {
+    public void setEndGoal(String endGoal) {
         this.endGoal = endGoal;
     }
 
