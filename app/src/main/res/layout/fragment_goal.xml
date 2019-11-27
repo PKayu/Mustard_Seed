@@ -9,26 +9,32 @@
         android:id="@+id/numDays"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:autofillHints=""
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="32dp"
+        android:autofillHints="Number of Days for the total Goal"
         android:ems="10"
+
+        android:hint="# of Day (1-7)"
         android:inputType="number"
-        android:text="@string/numDays"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView" />
 
     <EditText
         android:id="@+id/startDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:autofillHints=""
+        android:layout_marginEnd="32dp"
+        android:autofillHints="Start Date"
         android:ems="10"
+        android:hint="Start Date"
         android:inputType="date"
-        android:text="@string/startDate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/numDays" />
 
     <EditText
@@ -36,12 +42,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:autofillHints=""
+        android:layout_marginEnd="32dp"
+        android:autofillHints="End Date"
         android:ems="10"
+        android:hint="End Date"
         android:inputType="date"
-        android:text="@string/endDate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/startDate" />
 
     <TextView
@@ -68,5 +74,43 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/forceCompleteGoal" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="273dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginRight="32dp"
+        android:text="Weekly Goal (# days)"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/numDays"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="26dp" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="126dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginRight="32dp"
+        android:text="Start Date"
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/startDate"
+        app:layout_constraintEnd_toStartOf="@+id/startDate"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="128dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="32dp"
+        android:text="End Date"
+        android:textSize="24sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/endDate"
+        app:layout_constraintEnd_toStartOf="@+id/endDate"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
