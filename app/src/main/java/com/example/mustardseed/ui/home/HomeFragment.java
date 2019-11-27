@@ -36,7 +36,7 @@ public class HomeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         _userComment = root.findViewById(R.id.userComment);
 
-
+        // Get shared preferences of the user and display
         SharedPreferences preferences = this.getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
         //preferences.edit().clear().commit();
 
@@ -52,14 +52,16 @@ public class HomeFragment extends Fragment {
             _userComment.setText("Welcome user\n Please setup your user profile!");
         }
 
+        //Get shared preferences of the goal and display
         SharedPreferences goalPreferences = this.getActivity().getSharedPreferences("goal", Context.MODE_PRIVATE);
         String getGoal = goalPreferences.getString("goal", null);
 
         Gson gsonGoal = new Gson();
         _currentGoal = root.findViewById(R.id.currentGoal);
+        Goal goal = gsonGoal.fromJson(getGoal, Goal.class);
+        String _currentNumGoal = goal.getNumDays();
 
-        if(getGoal != null){
-            Goal goal = gsonGoal.fromJson(getGoal, Goal.class);
+        if(getGoal != null && _currentNumGoal != null){
 
             String showGoal = "Your Current Goal: " + goal.getNumDays() + " days a week from " +
                     goal.getStartGoal() + " to " + goal.getEndGoal();

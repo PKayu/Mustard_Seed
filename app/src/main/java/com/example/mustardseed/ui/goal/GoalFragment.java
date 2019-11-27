@@ -52,7 +52,8 @@ public class GoalFragment extends Fragment {
     private EditText _startDate;
     private EditText _endDate;
     private EditText _NumDaysWeek;
-    private Button _completedGoal;
+    private TextView _completedGoal;
+    private TextView _currentGoal;
 
 
     private GoalViewModel goalViewModel;
@@ -82,6 +83,7 @@ public class GoalFragment extends Fragment {
         _startDate = root.findViewById(R.id.startDate);
         _endDate = root.findViewById(R.id.endDate);
         _NumDaysWeek = root.findViewById(R.id.numDays);
+        _completedGoal = root.findViewById(R.id.forceCompleteGoal);
 
         //only allow 1-7 in the num days section
         _NumDaysWeek.setFilters(new InputFilter[] { new InputFilterMinMax("1", "7")});
@@ -106,7 +108,7 @@ public class GoalFragment extends Fragment {
 
         // setup save btn click listener
         Log.i(TAG, "Create listener");
-      //  _completedGoal.setOnClickListener(this::completeGoal);
+        _completedGoal.setOnClickListener(this::completeGoal);
 
         return root;
     }
@@ -147,17 +149,31 @@ public class GoalFragment extends Fragment {
 
     /**
      * This will delete the prior goal and set it back to null
-     * @param v
+     * @param view
      */
-//    public void completeGoal(View v){
-//        Log.i("GoalFragment", "Force Complete clicked");
-//        SharedPreferences preferences = this.getActivity().getSharedPreferences("goal", Context.MODE_PRIVATE);
-//        String gGoal = preferences.getString("goal", null);
-//
-//        Gson gson = new Gson();
-//        Goal goal = gson.fromJson(gGoal,Goal.class);
-//
-//        int startingLength = Goal.length();
-//    }
+    public void completeGoal(View view){
+        Log.i("GoalFragment", "Force Complete clicked");
+
+        String sNumDays = null;
+        String sStartDate = null;
+        String sEndDate = null;
+
+        Goal goal = new Goal(sNumDays, sStartDate, sEndDate);
+        Gson gson = new Gson();
+
+        String gGoal = gson.toJson(goal);
+
+        SharedPreferences sharedPref = view.getContext().getSharedPreferences("goal", Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = sharedPref.edit();
+        prefEditor.putString("goal", gGoal);
+        prefEditor.commit();
+        Toast.makeText(view.getContext().getApplicationContext(),"Your goal has been completed successfully", Toast.LENGTH_LONG).show();
+
+        Log.i(TAG, "Load stored preferences");
+        _startDate.setText(goal.getStartGoal());
+        _endDate.setText(goal.getEndGoal());
+        _NumDaysWeek.setText(goal.getNumDays());
+        Log.i(TAG, "Finish loading stored preferences");
+    }
 
 };
