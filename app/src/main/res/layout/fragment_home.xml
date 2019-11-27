@@ -63,8 +63,8 @@
 
     <TextView
         android:id="@+id/currentGoal"
-        android:layout_width="292dp"
-        android:layout_height="25dp"
+        android:layout_width="291dp"
+        android:layout_height="61dp"
         android:layout_marginTop="32dp"
         android:text="@string/tvCurrent_goal"
         android:textAlignment="center"

@@ -52,6 +52,7 @@ public class GoalFragment extends Fragment {
     private EditText _startDate;
     private EditText _endDate;
     private EditText _NumDaysWeek;
+    private Button _completedGoal;
 
 
     private GoalViewModel goalViewModel;
@@ -103,6 +104,9 @@ public class GoalFragment extends Fragment {
             Log.i(TAG, "Finish loading stored preferences");
         }
 
+        // setup save btn click listener
+        Log.i(TAG, "Create listener");
+      //  _completedGoal.setOnClickListener(this::completeGoal);
 
         return root;
     }
@@ -140,5 +144,20 @@ public class GoalFragment extends Fragment {
         prefEditor.commit();
         Toast.makeText(view.getContext().getApplicationContext(),"Your goal has been saved successfully", Toast.LENGTH_LONG).show();
     }
+
+    /**
+     * This will delete the prior goal and set it back to null
+     * @param v
+     */
+//    public void completeGoal(View v){
+//        Log.i("GoalFragment", "Force Complete clicked");
+//        SharedPreferences preferences = this.getActivity().getSharedPreferences("goal", Context.MODE_PRIVATE);
+//        String gGoal = preferences.getString("goal", null);
+//
+//        Gson gson = new Gson();
+//        Goal goal = gson.fromJson(gGoal,Goal.class);
+//
+//        int startingLength = Goal.length();
+//    }
 
 };

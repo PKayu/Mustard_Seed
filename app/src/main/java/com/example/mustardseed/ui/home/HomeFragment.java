@@ -14,12 +14,20 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.mustardseed.R;
 import com.example.mustardseed.User;
+import com.example.mustardseed.Goal;
 import com.google.gson.Gson;
 
 public class HomeFragment extends Fragment {
 
     private TextView _userComment;
     private HomeViewModel homeViewModel;
+    private TextView _currentGoal;
+
+    String _startDate;
+    String _endDate;
+    String _numDays;
+
+    private static final String TAG = "Received intent with ";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -42,6 +50,22 @@ public class HomeFragment extends Fragment {
             _userComment.setText(sGreeting);
         } else {
             _userComment.setText("Welcome user\n Please setup your user profile!");
+        }
+
+        SharedPreferences goalPreferences = this.getActivity().getSharedPreferences("goal", Context.MODE_PRIVATE);
+        String getGoal = goalPreferences.getString("goal", null);
+
+        Gson gsonGoal = new Gson();
+        _currentGoal = root.findViewById(R.id.currentGoal);
+
+        if(getGoal != null){
+            Goal goal = gsonGoal.fromJson(getGoal, Goal.class);
+
+            String showGoal = "Your Current Goal: " + goal.getNumDays() + " days a week from " +
+                    goal.getStartGoal() + " to " + goal.getEndGoal();
+            _currentGoal.setText(showGoal);
+        }else {
+            _currentGoal.setText("No Current Goal Set\n Please set up your goal");
         }
 
         return root;
