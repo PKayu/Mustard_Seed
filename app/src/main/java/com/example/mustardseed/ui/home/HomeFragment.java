@@ -27,6 +27,9 @@ public class HomeFragment extends Fragment {
     String _endDate;
     String _numDays;
 
+    private int _currStreak;
+    private int _maxStreak;
+
     private static final String TAG = "Received intent with ";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -41,6 +44,10 @@ public class HomeFragment extends Fragment {
         //preferences.edit().clear().commit();
 
         String gUser = preferences.getString("user", null);
+
+        //Load current streak and max streak from preferences
+        _maxStreak = preferences.getInt("maxStreak", 0);
+        _currStreak = preferences.getInt("currStreak", 0);
 
         Gson gson = new Gson();
         if(gUser != null){
@@ -68,6 +75,14 @@ public class HomeFragment extends Fragment {
         }else {
             _currentGoal.setText("No Current Goal Set\n Please set up your goal");
         }
+
+        //Set current Streak and max Streak on View
+        TextView mStreak = root.findViewById(R.id.bestStreak);
+        TextView cStreak = root.findViewById(R.id.currentStreak);
+        String maxStreak = (" " + _maxStreak + " ");
+        String curStreak = (" " + _currStreak + " ");
+        mStreak.setText(maxStreak);
+        cStreak.setText(curStreak);
 
         return root;
     }

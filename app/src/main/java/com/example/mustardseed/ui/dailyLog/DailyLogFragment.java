@@ -33,6 +33,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -48,6 +49,9 @@ public class DailyLogFragment extends Fragment {
     private LocalDate currDate;
     private List<LocalDate> _savedDates = new ArrayList<>();
     private TextView _currentGoal;
+    private int _currStreak;
+    private int _maxStreak;
+    private LocalDate _today;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -63,9 +67,13 @@ public class DailyLogFragment extends Fragment {
         SharedPreferences preferences = this.getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
 //        preferences.edit().clear();
         String gDateString = preferences.getString("dailyLogDateArray", null);
+        _maxStreak = preferences.getInt("maxStreak", 0);
+        _currStreak = preferences.getInt("currStreak", 0);
 
         Gson gson = new Gson();
         String[] dateStrings = gson.fromJson(gDateString, String[].class);
+
+        _today = LocalDate.now();
 
         if(dateStrings != null) {
             for (int i = 0; i<dateStrings.length; i++){
@@ -79,8 +87,9 @@ public class DailyLogFragment extends Fragment {
             Log.i("DailyLogFragment", "_daysRead = "+ _daysRead);
             Log.i("DailyLogFragment", "_savedDates = "+ _savedDates);
 
-            //Make sure set days are Highlighted.
+            //Make sure set days are Highlighted and current day checked if applicable.
             _CalendarView.setHighlightedDays(_daysRead);
+            _readingSwitch.setChecked(_savedDates.contains(_today));
 
             //Get shared preferences of the goal and display
             setCurrentGoal(root);
@@ -108,6 +117,11 @@ public class DailyLogFragment extends Fragment {
         String gDateString = gson.toJson(dateStrings);
         Log.i("DailyLogFragment", "String[] dateStrings in JSON =" + gDateString);
         editor.putString("dailyLogDateArray", gDateString);
+
+        // Save streak data
+        checkLongestStreak();
+        editor.putInt("currStreak", _currStreak);
+        editor.putInt("maxStreak", _maxStreak);
         editor.commit();
     }
 
@@ -144,6 +158,10 @@ public class DailyLogFragment extends Fragment {
         Log.i("DailyLogFragment", "_dailyLog after toggle = " + _daysRead);
         Log.i("DailyLogFragment", "_savedDates after toggle = " + _savedDates);
         _CalendarView.setHighlightedDays(_daysRead);
+
+        //Sort array and find currentStreak
+        sortDaysArray();
+        findCurrentStreak();
     }
 
     public void setCurrentGoal(View root){
@@ -163,4 +181,61 @@ public class DailyLogFragment extends Fragment {
             _currentGoal.setText("No Current Goal Set\n Please set up your goal");
         }
     }
+
+    public void sortDaysArray() {
+        //Log.i("DailyLogFragment", "_savedDates before sort = " + _savedDates);
+        Collections.sort(_savedDates, Collections.reverseOrder());
+        //Log.i("DailyLogFragment", "_savedDates after sort = " + _savedDates);
+    }
+
+    public void findCurrentStreak() {
+        int streak = 1;
+        Log.i("DailyLogFragment", "Today = " + _today);
+        Log.i("DailyLogFragment", "_savedDates0 = " + _savedDates.get(0));
+        if (_savedDates.get(0).compareTo(_today) == 0 || _savedDates.get(0).compareTo(_today.minusDays(1)) == 0) {
+            for (int i = 0; i < _savedDates.size() - 1; i++) {
+                Log.i("DailyLogFragment", "_savedDates" + i + " = " + _savedDates.get(i));
+                LocalDate prevDay = _savedDates.get(i).minusDays(1);
+                Log.i("DailyLogFragment", "Calculated prevDay = " + prevDay);
+                Log.i("DailyLogFragment", "Calculated _savedDates i+1 = " + _savedDates.get(i + 1));
+                if (prevDay.compareTo(_savedDates.get(i + 1)) == 0) {
+                    streak++;
+                } else {
+                    break;
+                }
+            }
+            Log.i("DailyLogFragment", "currStreak = " + streak);
+            _currStreak = streak;
+            if (_currStreak > _maxStreak){
+                _maxStreak = _currStreak;
+            }
+        } else {
+            _currStreak = 0;
+            Log.i("DailyLogFragment", "No streak");
+        }
+    }
+
+    public void checkLongestStreak(){
+        Log.i("DailyLogFragment", "Max Streak Before check = " + _maxStreak);
+        int max = _maxStreak;
+        int streak = 1;
+        for (int i = 0; i < _savedDates.size() - 1; i++) {
+            LocalDate prevDay = _savedDates.get(i).minusDays(1);
+            LocalDate nextDay = _savedDates.get(i+1);
+            Log.i("DailyLogFragment", "prevDay = " + prevDay);
+            Log.i("DailyLogFragment", "nextDay = " + nextDay);
+            if (prevDay.compareTo(nextDay) == 0){
+                streak++;
+            } else {
+                if (max < streak){
+                    max = streak;
+                }
+                streak = 1;
+            }
+            Log.i("DailyLogFragment", "Looping Streak for max = " + streak);
+        }
+        _maxStreak = max;
+        Log.i("DailyLogFragment", "Max Streak after check = " + _maxStreak);
+    }
+
 }
