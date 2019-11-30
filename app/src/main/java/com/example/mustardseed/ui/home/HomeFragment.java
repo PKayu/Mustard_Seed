@@ -59,10 +59,9 @@ public class HomeFragment extends Fragment {
         Gson gsonGoal = new Gson();
         _currentGoal = root.findViewById(R.id.currentGoal);
         Goal goal = gsonGoal.fromJson(getGoal, Goal.class);
-        String _currentNumGoal = goal.getNumDays();
 
-        if(getGoal != null && _currentNumGoal != null){
-
+        if(getGoal != null && goal != null){
+            String _currentNumGoal = goal.getNumDays();
             String showGoal = "Your Current Goal: " + goal.getNumDays() + " days a week from " +
                     goal.getStartGoal() + " to " + goal.getEndGoal();
             _currentGoal.setText(showGoal);
