@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -19,6 +20,7 @@ import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.example.mustardseed.DailyLogLogic;
+import com.example.mustardseed.Goal;
 import com.example.mustardseed.R;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -45,6 +47,7 @@ public class DailyLogFragment extends Fragment {
     private Calendar currCal;
     private LocalDate currDate;
     private List<LocalDate> _savedDates = new ArrayList<>();
+    private TextView _currentGoal;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -78,6 +81,9 @@ public class DailyLogFragment extends Fragment {
 
             //Make sure set days are Highlighted.
             _CalendarView.setHighlightedDays(_daysRead);
+
+            //Get shared preferences of the goal and display
+            setCurrentGoal(root);
 
             // setup Calendar click listener
             _CalendarView.setOnDayClickListener(this::onDayClick);
@@ -138,5 +144,23 @@ public class DailyLogFragment extends Fragment {
         Log.i("DailyLogFragment", "_dailyLog after toggle = " + _daysRead);
         Log.i("DailyLogFragment", "_savedDates after toggle = " + _savedDates);
         _CalendarView.setHighlightedDays(_daysRead);
+    }
+
+    public void setCurrentGoal(View root){
+        //Get shared preferences of the goal and display
+        SharedPreferences goalPreferences = this.getActivity().getSharedPreferences("goal", Context.MODE_PRIVATE);
+        String getGoal = goalPreferences.getString("goal", null);
+
+        Gson gsonGoal = new Gson();
+        _currentGoal = root.findViewById(R.id.currentGoal2);
+        Goal goal = gsonGoal.fromJson(getGoal, Goal.class);
+
+        if(getGoal != null && goal != null){
+            String showGoal = "Your Current Goal: " + goal.getNumDays() + " days a week from " +
+                    goal.getStartGoal() + " to " + goal.getEndGoal();
+            _currentGoal.setText(showGoal);
+        }else {
+            _currentGoal.setText("No Current Goal Set\n Please set up your goal");
+        }
     }
 }

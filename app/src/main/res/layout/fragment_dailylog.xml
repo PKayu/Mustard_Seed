@@ -9,12 +9,25 @@
         android:id="@+id/changeGoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="8dp"
         android:clickable="false"
         android:text="@string/changeGoal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/calendarView" />
+        app:layout_constraintTop_toBottomOf="@id/currentGoal2" />
+
+    <TextView
+        android:id="@+id/currentGoal2"
+        android:layout_width="291dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/tvCurrent_goal"
+        android:textAlignment="center"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/readingSwitch" />
 
     <Switch
         android:id="@+id/readingSwitch"
