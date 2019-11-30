@@ -106,14 +106,14 @@ public class DailyLogFragment extends Fragment {
     }
 
     public void onDayClick(EventDay eventDay) {
-//                Log.i("DailyLogFragment", "Event Day clicked is: " + eventDay);
-//                Log.i("DailyLogFragment", "Before clicked _daysRead has: " + _daysRead.size());
-//                Log.i("DailyLogFragment", "Before clicked currDay is: " + currDay);
+                Log.i("DailyLogFragment", "Event Day clicked is: " + eventDay);
+                Log.i("DailyLogFragment", "Before clicked _daysRead has: " + _daysRead.size());
+                Log.i("DailyLogFragment", "Before clicked currCal is: " + currDate);
         currCal = eventDay.getCalendar();
         currDate = currCal.getTime().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         _readingSwitch.setChecked(_savedDates.contains(currDate));
-//                Log.i("DailyLogFragment", "After click event Day clicked is: " + eventDay);
-//                Log.i("DailyLogFragment", "After clicked _daysRead has: " + _daysRead.size());
+                Log.i("DailyLogFragment", "After click event Day clicked is: " + eventDay);
+                Log.i("DailyLogFragment", "After clicked _daysRead has: " + _daysRead.size());
         Log.i("DailyLogFragment", "After clicked currDay is: " + currDate);
         Log.i("DailyLogFragment", "_daysRead = " + _daysRead);
         Log.i("DailyLogFragment", "_savedDates = " + _savedDates);
