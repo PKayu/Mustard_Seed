@@ -28,9 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-
     public static final String NOTIFICATION_CHANNEL_ID = "10001";
-    private final static  String default_notification_channel_id = "default";
 
     private AppBarConfiguration mAppBarConfiguration;
     private int previousGoalId = 0;
@@ -55,10 +53,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
-
-        scheduleNotifcation(getNotification(),30000);
-
-
     }
 
     //Commenting this out took away the three dots... might have other consequences.
@@ -74,25 +68,5 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
-    }
-
-    private void scheduleNotifcation (Notification notification, int delay) {
-        Intent notificationIntent = new Intent(this, MainReceiver.class);
-        notificationIntent.putExtra(MainReceiver.NOTIFICATION_ID, 1);
-        notificationIntent.putExtra(MainReceiver.NOTIFICATION, notification);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        long futureInMillis = SystemClock.elapsedRealtime() + delay;
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        assert alarmManager != null;
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
-    }
-
-    private Notification getNotification () {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, default_notification_channel_id);
-        builder.setContentTitle("Scripture Time");
-        builder.setContentText("Did you think to read? Mark your progress!");
-        builder.setSmallIcon(R.drawable.ic_access_alarm);
-        builder.setChannelId(NOTIFICATION_CHANNEL_ID);
-        return  builder.build();
     }
 }
