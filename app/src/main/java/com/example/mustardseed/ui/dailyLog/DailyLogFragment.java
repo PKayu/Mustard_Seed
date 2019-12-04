@@ -234,6 +234,9 @@ public class DailyLogFragment extends Fragment {
             }
             Log.i("DailyLogFragment", "Looping Streak for max = " + streak);
         }
+        if (max < streak){
+            max = streak;
+        }
         _maxStreak = max;
         Log.i("DailyLogFragment", "Max Streak after check = " + _maxStreak);
     }
