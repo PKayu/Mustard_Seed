@@ -3,6 +3,7 @@ package com.example.mustardseed.ui.home;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import com.example.mustardseed.R;
 import com.example.mustardseed.User;
 import com.example.mustardseed.Goal;
 import com.google.gson.Gson;
+
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 public class HomeFragment extends Fragment {
 
@@ -31,6 +34,7 @@ public class HomeFragment extends Fragment {
     private int _maxStreak;
 
     private static final String TAG = "Received intent with ";
+    private static final String TAG1 = "Goal info: ";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -67,7 +71,9 @@ public class HomeFragment extends Fragment {
         _currentGoal = root.findViewById(R.id.currentGoal);
         Goal goal = gsonGoal.fromJson(getGoal, Goal.class);
 
-        if(getGoal != null && goal != null){
+
+        Log.i("GoalLogLogic", "This is the getGoal: " + getGoal);
+        if(goal.getNumDays() != null && goal != null){
             String _currentNumGoal = goal.getNumDays();
             String showGoal = "Your Current Goal: " + goal.getNumDays() + " days a week from " +
                     goal.getStartGoal() + " to " + goal.getEndGoal();
