@@ -5,6 +5,7 @@ public class Notification {
 
     private int hour;
     private int minute;
+    private long timeInMillis;
     private String message;
 
     public int getHour() { return hour; }
@@ -23,8 +24,9 @@ public class Notification {
         this.message = message;
     }
 
-    public Notification(int hour, int minute) {
+    public Notification(int hour, int minute, long timeInMillis) {
         this.hour = hour;
         this.minute = minute;
+        this.timeInMillis = timeInMillis;
     }
 }

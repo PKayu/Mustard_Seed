@@ -1,12 +1,16 @@
 package com.example.mustardseed;
 
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TimePicker;
 
@@ -36,8 +40,17 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         // format minute with a prepended zero if single digit
         String sMinute = String.format("%02d", minute);
         _etNotification.setText(hourOfDay + ":" + sMinute);
+
+        final Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        long millis = calendar.getTimeInMillis();
+
         Log.i("TimePickerFormat", "Time set in edit text view");
-        Notification notification = new Notification(hourOfDay, minute);
+        Notification notification = new Notification(hourOfDay, minute, millis);
 
         Gson gson = new Gson();
 
@@ -47,7 +60,17 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
         SharedPreferences.Editor prefEditor = sharedPref.edit();
         prefEditor.putString("notification", gNotification);
         prefEditor.commit();
+        setAlarm(millis);
 
         Log.i("TimePickerFragment", "saved notification");
+    }
+
+    private void setAlarm(long millis){
+        Intent notifyIntent = new Intent(this.getActivity(), MainReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast
+                (this.getActivity(), 3, notifyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) this.getActivity().getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,  millis,
+                AlarmManager.INTERVAL_FIFTEEN_MINUTES, pendingIntent);
     }
 }

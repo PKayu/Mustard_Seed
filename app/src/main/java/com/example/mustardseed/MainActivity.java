@@ -1,29 +1,24 @@
 package com.example.mustardseed;
 
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.PendingIntent;
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
+import android.os.SystemClock;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.applandeo.materialcalendarview.CalendarView;
-import com.applandeo.materialcalendarview.EventDay;
-import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,9 +29,11 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String NOTIFICATION_CHANNEL_ID = "10001";
+    private final static  String default_notification_channel_id = "default";
+
     private AppBarConfiguration mAppBarConfiguration;
     private int previousGoalId = 0;
-    public int DATE_DIALOG = 0;
 //    private CalendarView _CalendarView;
 //    private List<EventDay> _loggedDays = new ArrayList<>();
 
@@ -58,6 +55,10 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        scheduleNotifcation(getNotification(),30000);
+
+
     }
 
     //Commenting this out took away the three dots... might have other consequences.
@@ -73,5 +74,25 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
+    }
+
+    private void scheduleNotifcation (Notification notification, int delay) {
+        Intent notificationIntent = new Intent(this, MainReceiver.class);
+        notificationIntent.putExtra(MainReceiver.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(MainReceiver.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        long futureInMillis = SystemClock.elapsedRealtime() + delay;
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        assert alarmManager != null;
+        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+    }
+
+    private Notification getNotification () {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, default_notification_channel_id);
+        builder.setContentTitle("Scripture Time");
+        builder.setContentText("Did you think to read?");
+        builder.setSmallIcon(R.drawable.ic_access_alarm);
+        builder.setChannelId(NOTIFICATION_CHANNEL_ID);
+        return  builder.build();
     }
 }
