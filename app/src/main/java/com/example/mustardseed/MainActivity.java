@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
     private Notification getNotification () {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, default_notification_channel_id);
         builder.setContentTitle("Scripture Time");
-        builder.setContentText("Did you think to read?");
+        builder.setContentText("Did you think to read? Mark your progress!");
         builder.setSmallIcon(R.drawable.ic_access_alarm);
         builder.setChannelId(NOTIFICATION_CHANNEL_ID);
         return  builder.build();
