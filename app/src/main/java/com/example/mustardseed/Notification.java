@@ -24,6 +24,14 @@ public class Notification {
         this.message = message;
     }
 
+    public long getTimeInMillis() {
+        return timeInMillis;
+    }
+
+    public void setTimeInMillis(long timeInMillis) {
+        this.timeInMillis = timeInMillis;
+    }
+
     public Notification(int hour, int minute, long timeInMillis) {
         this.hour = hour;
         this.minute = minute;

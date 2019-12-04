@@ -1,7 +1,9 @@
 package com.example.mustardseed.ui.profile;
 
-import android.app.TimePickerDialog;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,14 +13,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.mustardseed.MainActivity;
+import com.example.mustardseed.MainReceiver;
 import com.example.mustardseed.Notification;
 import com.example.mustardseed.R;
 import com.example.mustardseed.TimePickerFragment;
@@ -28,13 +32,16 @@ import com.google.gson.Gson;
 
 public class ProfileFragment extends Fragment {
 
+    public static final String NOTIFICATION_CHANNEL_ID = "10001";
+    private final static  String default_notification_channel_id = "default";
+
     private Button _btnSave;
     private EditText _etFullName;
     private  EditText _etFavScripture;
     private EditText _etNotification;
     private Switch _notifEnabled;
 
-    private static final String TAG = "ProfileFreagment";
+    private static final String TAG = "ProfileFragment";
     private ProfileViewModel profileViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -97,6 +104,25 @@ public class ProfileFragment extends Fragment {
         SharedPreferences.Editor prefEditor = sharedPref.edit();
         prefEditor.putString("user", gUser);
         prefEditor.commit();
+
+        SharedPreferences preferences = this.getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        String gNotification = preferences.getString("notification", null);
+
+        if(_notifEnabled.isChecked()){
+            Gson gsonLoad = new Gson();
+            Notification notification = gsonLoad.fromJson(gNotification, Notification.class);
+
+            scheduleNotification(getNotification(),notification.getTimeInMillis());
+        } else {
+            AlarmManager alarmManager = (AlarmManager) this.getActivity().getSystemService(Context.ALARM_SERVICE);
+            Intent notificationIntent = new Intent(this.getActivity(), MainReceiver.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getActivity(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            if(alarmManager != null){
+                alarmManager.cancel(pendingIntent);
+            }
+        }
+
         Toast.makeText(view.getContext().getApplicationContext(),"Your profile has been saved successfully", Toast.LENGTH_LONG).show();
     }
 
@@ -106,4 +132,30 @@ public class ProfileFragment extends Fragment {
 
         Log.i(TAG, "TimerPicker Clicked!");
     }
+
+    private void scheduleNotification (android.app.Notification notification, long millis) {
+        Intent notificationIntent = new Intent(this.getActivity(), MainReceiver.class);
+        notificationIntent.putExtra(MainReceiver.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(MainReceiver.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this.getActivity(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) this.getActivity().getSystemService(Context.ALARM_SERVICE);
+        assert alarmManager != null;
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,  millis,
+                AlarmManager.INTERVAL_DAY, pendingIntent);
+        //alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, millis + 30000, pendingIntent);
+    }
+
+    private android.app.Notification getNotification () {
+        Intent notificationIntent = new Intent(this.getActivity(), MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this.getActivity(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this.getActivity(), default_notification_channel_id);
+        builder.setContentTitle("Scripture Time");
+        builder.setContentText("Did you think to read? Mark your progress!");
+        builder.setSmallIcon(R.drawable.ic_access_alarm);
+        builder.setChannelId(NOTIFICATION_CHANNEL_ID);
+        builder.setContentIntent(pendingIntent);
+        return  builder.build();
+    }
+
 }
