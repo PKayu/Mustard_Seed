@@ -21,7 +21,11 @@
         android:id="@+id/nav_dailylog"
         android:name="com.example.mustardseed.ui.dailyLog.DailyLogFragment"
         android:label="@string/menu_dailyLog"
-        tools:layout="@layout/fragment_dailylog" />
+        tools:layout="@layout/fragment_dailylog" >
+        <action
+            android:id="@+id/goToGoal"
+            app:destination="@+id/nav_goal" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_profile"

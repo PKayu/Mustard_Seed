@@ -29,6 +29,7 @@ import com.example.mustardseed.Goal;
 import com.example.mustardseed.MainActivity;
 import com.example.mustardseed.R;
 import com.example.mustardseed.ui.goal.GoalFragment;
+import com.example.mustardseed.ui.goal.GoalViewModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -61,6 +62,7 @@ public class DailyLogFragment extends Fragment {
     private int _maxStreak;
     private LocalDate _today;
     private Button _newGoalButton;
+    private GoalViewModel _goalViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -204,28 +206,33 @@ public class DailyLogFragment extends Fragment {
 
     public void findCurrentStreak() {
         int streak = 1;
-        Log.i("DailyLogFragment", "Today = " + _today);
-        Log.i("DailyLogFragment", "_savedDates0 = " + _savedDates.get(0));
-        if (_savedDates.get(0).compareTo(_today) == 0 || _savedDates.get(0).compareTo(_today.minusDays(1)) == 0) {
-            for (int i = 0; i < _savedDates.size() - 1; i++) {
-                Log.i("DailyLogFragment", "_savedDates" + i + " = " + _savedDates.get(i));
-                LocalDate prevDay = _savedDates.get(i).minusDays(1);
-                Log.i("DailyLogFragment", "Calculated prevDay = " + prevDay);
-                Log.i("DailyLogFragment", "Calculated _savedDates i+1 = " + _savedDates.get(i + 1));
-                if (prevDay.compareTo(_savedDates.get(i + 1)) == 0) {
-                    streak++;
-                } else {
-                    break;
+        if (_savedDates.size() > 0) {
+            Log.i("DailyLogFragment", "Today = " + _today);
+            Log.i("DailyLogFragment", "_savedDates0 = " + _savedDates.get(0));
+            if (_savedDates.get(0).compareTo(_today) == 0 || _savedDates.get(0).compareTo(_today.minusDays(1)) == 0) {
+                for (int i = 0; i < _savedDates.size() - 1; i++) {
+                    Log.i("DailyLogFragment", "_savedDates" + i + " = " + _savedDates.get(i));
+                    LocalDate prevDay = _savedDates.get(i).minusDays(1);
+                    Log.i("DailyLogFragment", "Calculated prevDay = " + prevDay);
+                    Log.i("DailyLogFragment", "Calculated _savedDates i+1 = " + _savedDates.get(i + 1));
+                    if (prevDay.compareTo(_savedDates.get(i + 1)) == 0) {
+                        streak++;
+                    } else {
+                        break;
+                    }
                 }
+                Log.i("DailyLogFragment", "currStreak = " + streak);
+                _currStreak = streak;
+                if (_currStreak > _maxStreak) {
+                    _maxStreak = _currStreak;
+                }
+            } else {
+                _currStreak = 0;
+                Log.i("DailyLogFragment", "No streak");
             }
-            Log.i("DailyLogFragment", "currStreak = " + streak);
-            _currStreak = streak;
-            if (_currStreak > _maxStreak){
-                _maxStreak = _currStreak;
-            }
-        } else {
+        }
+        else {
             _currStreak = 0;
-            Log.i("DailyLogFragment", "No streak");
         }
     }
 
@@ -233,20 +240,22 @@ public class DailyLogFragment extends Fragment {
         Log.i("DailyLogFragment", "Max Streak Before check = " + _maxStreak);
         int max = _maxStreak;
         int streak = 1;
-        for (int i = 0; i < _savedDates.size() - 1; i++) {
-            LocalDate prevDay = _savedDates.get(i).minusDays(1);
-            LocalDate nextDay = _savedDates.get(i+1);
-            Log.i("DailyLogFragment", "prevDay = " + prevDay);
-            Log.i("DailyLogFragment", "nextDay = " + nextDay);
-            if (prevDay.compareTo(nextDay) == 0){
-                streak++;
-            } else {
-                if (max < streak){
-                    max = streak;
+        if (_savedDates.size() > 1) {
+            for (int i = 0; i < _savedDates.size() - 1; i++) {
+                LocalDate prevDay = _savedDates.get(i).minusDays(1);
+                LocalDate nextDay = _savedDates.get(i + 1);
+                Log.i("DailyLogFragment", "prevDay = " + prevDay);
+                Log.i("DailyLogFragment", "nextDay = " + nextDay);
+                if (prevDay.compareTo(nextDay) == 0) {
+                    streak++;
+                } else {
+                    if (max < streak) {
+                        max = streak;
+                    }
+                    streak = 1;
                 }
-                streak = 1;
+                Log.i("DailyLogFragment", "Looping Streak for max = " + streak);
             }
-            Log.i("DailyLogFragment", "Looping Streak for max = " + streak);
         }
         if (max < streak){
             max = streak;
@@ -257,15 +266,6 @@ public class DailyLogFragment extends Fragment {
 
     private View.OnClickListener newGoalListener = new View.OnClickListener() {
         public void onClick(View v) {
-            Log.i("DailyLogFragment", "Button Clicked for new activity");
-//            Fragment this2Frag = getActivity().getSupportFragmentManager().getPrimaryNavigationFragment();
-//            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-//            GoalFragment gfrag = new GoalFragment();
-//            Fragment thisFrag = getFragmentManager().
-//            transaction.remove(thisFrag);
-//            transaction.addToBackStack(null);
-//            // Commit the transaction
-//            transaction.commit();
         }
     };
 
