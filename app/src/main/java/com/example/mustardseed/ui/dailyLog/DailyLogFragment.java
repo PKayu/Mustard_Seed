@@ -2,32 +2,40 @@ package com.example.mustardseed.ui.dailyLog;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.fragment.FragmentNavigator;
 
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
 import com.example.mustardseed.DailyLogLogic;
 import com.example.mustardseed.Goal;
+import com.example.mustardseed.MainActivity;
 import com.example.mustardseed.R;
+import com.example.mustardseed.ui.goal.GoalFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -52,6 +60,7 @@ public class DailyLogFragment extends Fragment {
     private int _currStreak;
     private int _maxStreak;
     private LocalDate _today;
+    private Button _newGoalButton;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -62,6 +71,7 @@ public class DailyLogFragment extends Fragment {
         // Get views for manipulation
         _CalendarView = (CalendarView) root.findViewById(R.id.calendarView);
         _readingSwitch = (Switch) root.findViewById(R.id.readingSwitch);
+        _newGoalButton = (Button) root.findViewById(R.id.changeGoalButton);
 
         //Load sharedPref
         SharedPreferences preferences = this.getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
@@ -93,13 +103,15 @@ public class DailyLogFragment extends Fragment {
 
             //Get shared preferences of the goal and display
             setCurrentGoal(root);
-
-            // setup Calendar click listener
-            _CalendarView.setOnDayClickListener(this::onDayClick);
-
-            // setup toggle for listener
-            _readingSwitch.setOnCheckedChangeListener(this::onCheckedChanged);
         }
+        // setup Calendar click listener
+        _CalendarView.setOnDayClickListener(this::onDayClick);
+
+        // setup toggle for listener
+        _readingSwitch.setOnCheckedChangeListener(this::onCheckedChanged);
+
+        //Setup new goal button listener
+        _newGoalButton.setOnClickListener(newGoalListener);
 
         return root;
     }
@@ -173,11 +185,13 @@ public class DailyLogFragment extends Fragment {
         _currentGoal = root.findViewById(R.id.currentGoal2);
         Goal goal = gsonGoal.fromJson(getGoal, Goal.class);
 
-        if(goal.getNumDays() != null && goal != null){
-            String showGoal = "Your Current Goal: " + goal.getNumDays() + " days a week from " +
-                    goal.getStartGoal() + " to " + goal.getEndGoal();
-            _currentGoal.setText(showGoal);
-        }else {
+        if(goal != null) {
+            if (goal.getNumDays() != null) {
+                String showGoal = "Your Current Goal: " + goal.getNumDays() + " days a week from " +
+                        goal.getStartGoal() + " to " + goal.getEndGoal();
+                _currentGoal.setText(showGoal);
+            }
+        } else {
             _currentGoal.setText("No Current Goal Set\n Please set up your goal");
         }
     }
@@ -240,5 +254,19 @@ public class DailyLogFragment extends Fragment {
         _maxStreak = max;
         Log.i("DailyLogFragment", "Max Streak after check = " + _maxStreak);
     }
+
+    private View.OnClickListener newGoalListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            Log.i("DailyLogFragment", "Button Clicked for new activity");
+//            Fragment this2Frag = getActivity().getSupportFragmentManager().getPrimaryNavigationFragment();
+//            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//            GoalFragment gfrag = new GoalFragment();
+//            Fragment thisFrag = getFragmentManager().
+//            transaction.remove(thisFrag);
+//            transaction.addToBackStack(null);
+//            // Commit the transaction
+//            transaction.commit();
+        }
+    };
 
 }

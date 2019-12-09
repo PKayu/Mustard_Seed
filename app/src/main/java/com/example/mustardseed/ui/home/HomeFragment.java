@@ -73,12 +73,14 @@ public class HomeFragment extends Fragment {
 
 
         Log.i("GoalLogLogic", "This is the getGoal: " + getGoal);
-        if(goal.getNumDays() != null && goal != null){
-            String _currentNumGoal = goal.getNumDays();
-            String showGoal = "Your Current Goal: " + goal.getNumDays() + " days a week from " +
-                    goal.getStartGoal() + " to " + goal.getEndGoal();
-            _currentGoal.setText(showGoal);
-        }else {
+        if(goal != null) {
+            if (goal.getNumDays() != null) {
+                String _currentNumGoal = goal.getNumDays();
+                String showGoal = "Your Current Goal: " + goal.getNumDays() + " days a week from " +
+                        goal.getStartGoal() + " to " + goal.getEndGoal();
+                _currentGoal.setText(showGoal);
+            }
+        } else {
             _currentGoal.setText("No Current Goal Set\n Please set up your goal");
         }
 
