@@ -11,12 +11,14 @@
     <string name="current_streak">Current Streak</string>
     <string name="longest_streak">Longest Streak</string>
     <string name="tvCurrent_streak">Curr Streak</string>
+    <string name="notes">notes</string>
     <string name="tvLongest_streak">Long Streak</string>
     <string name="tvCurrent_goal">Current Goal</string>
 
     <string name="title_activity_calendar">CalendarActivity</string>
     <string name="readSwitch">Reading Complete?</string>
     <string name="changeGoal">Change Goal</string>
+    <string name="saveButton">Save</string>
 
     <string name="name">Name</string>
     <string name="favScripture">Favorite Scripture</string>
