@@ -21,6 +21,9 @@
     <string name="name">Name</string>
     <string name="favScripture">Favorite Scripture</string>
     <string name="notificationHdr">Notifications</string>
+    //new theme code
+    <string name="themeHdr"> Select Theme:</string>
+    <string name="settings_text_select_theme">Select Theme:</string>
     <string name="enabled">Enabled</string>
     <string name="setTime">Set Time</string>
     <string name="fullName">Full Name</string>
@@ -35,6 +38,11 @@
     <string name="menu_goal">Create Goal</string>
     <string name="menu_dailyLog">Daily Log</string>
     <string name="menu_profile">Profile</string>
+
+    <string-array name="theme_array">
+        <item>Material-Light</item>
+        <item>YOUR-CUSTOM-THEME-NAME</item>
+    </string-array>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

@@ -8,6 +8,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,6 +22,7 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.mustardseed.ui.Utils;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -36,10 +40,23 @@ public class MainActivity extends AppCompatActivity {
 //    private CalendarView _CalendarView;
 //    private List<EventDay> _loggedDays = new ArrayList<>();
 
+    // App level variable to retain selected spinner value
+    public static int currentPosition;
+
+    //themes code
+    private Spinner spThemes;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        themes code
+       // Utils.onActivityCreateSetTheme(this);
+
         setContentView(R.layout.activity_main);
+
+        //themes code
+        //setupSpinnerItemSelection();
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -71,4 +88,28 @@ public class MainActivity extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
+    //Themes code
+//    private void setupSpinnerItemSelection() {
+//        spThemes = (Spinner) findViewById(R.id.spThemes);
+//        spThemes.setSelection(ThemesApplication.currentPosition);
+//        ThemesApplication.currentPosition = spThemes.getSelectedItemPosition();
+//
+//        spThemes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view,
+//                                       int position, long id) {
+//                if (ThemesApplication.currentPosition != position) {
+//                    Utils.changeToTheme(MainActivity.this, position);
+//                }
+//                ThemesApplication.currentPosition = position;
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+
+//    }
 }

@@ -17,4 +17,19 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <!--new theme code-->
+    <!-- =============================================================== -->
+    <!-- Material-Light styles -->
+    <!-- =============================================================== -->
+    <style name="page_background_wh">
+        <item name="android:background">@drawable/white_gray_gradient_background</item>
+    </style>
+
+    <style name="white_background_wh">
+    <item name="android:background">@android:drawable/dialog_holo_light_frame</item>
+    </style>
+
+    <style name="spinner_wh">
+        <item name="android:background">@drawable/spinner_wh_background</item>
+    </style>
 </resources>
