@@ -173,6 +173,7 @@ public class DailyLogFragment extends Fragment {
         //Sort array and find currentStreak
         sortDaysArray();
         findCurrentStreak();
+        saveData();
     }
 
     public void setCurrentGoal(View root){
