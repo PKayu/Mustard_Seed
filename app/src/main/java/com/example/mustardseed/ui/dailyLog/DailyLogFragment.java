@@ -155,11 +155,15 @@ public class DailyLogFragment extends Fragment {
         LocalDate selectedDate = currDate;
         System.out.println(currDate);
         if (isChecked) {
-            if(_savedDates.contains(currDate)){
+            if (currDate.compareTo(_today) <= 0) {
+                if (_savedDates.contains(currDate)) {
 
-            }else {
-                _daysRead.add(selectedCal);
-                _savedDates.add(selectedDate);
+                } else {
+                    _daysRead.add(selectedCal);
+                    _savedDates.add(selectedDate);
+                }
+            } else {
+                buttonView.setChecked(false);
             }
         }
         else {
