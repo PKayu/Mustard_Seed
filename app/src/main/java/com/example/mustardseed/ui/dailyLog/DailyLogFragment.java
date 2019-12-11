@@ -69,8 +69,8 @@ public class DailyLogFragment extends Fragment {
         _currentNote = (TextInputEditText) root.findViewById(R.id.noteText);
 
         //Load sharedPref
-//        SharedPreferences preferences2 = this.getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
-//        preferences2.edit().clear().commit();
+        SharedPreferences preferences2 = this.getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        preferences2.edit().clear().commit();
         SharedPreferences preferences = this.getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
         String gDateString = preferences.getString("dailyLogDateArray", null);
         _maxStreak = preferences.getInt("maxStreak", 0);
@@ -97,8 +97,8 @@ public class DailyLogFragment extends Fragment {
                 _daysRead.add(cal);
                 _savedDates.add(ld);
             }
-            Log.i("DailyLogFragment", "_daysRead = "+ _daysRead);
-            Log.i("DailyLogFragment", "_savedDates = "+ _savedDates);
+//            Log.i("DailyLogFragment", "_daysRead = "+ _daysRead);
+//            Log.i("DailyLogFragment", "_savedDates = "+ _savedDates);
 
             //Make sure set days are Highlighted and current day checked if applicable.
             _CalendarView.setHighlightedDays(_daysRead);
@@ -127,13 +127,17 @@ public class DailyLogFragment extends Fragment {
     }
 
     public void onDayClick(EventDay eventDay) {
-        Log.i("DailyLogFragment", "Event Day clicked is: " + eventDay);
-        Log.i("DailyLogFragment", "Before clicked _daysRead has: " + _daysRead.size());
-        Log.i("DailyLogFragment", "Before clicked currCal is: " + currDate);
-        Log.i("DailyLogFragment", "Before clicked curent Note is: " + currNote);
+//        Log.i("DailyLogFragment", "Event Day clicked is: " + eventDay);
+//        Log.i("DailyLogFragment", "Before clicked _daysRead has: " + _daysRead.size());
+//        Log.i("DailyLogFragment", "Before clicked currCal is: " + currDate);
+//        Log.i("DailyLogFragment", "Before clicked curent Note is: " + currNote);
 
         //Save note to map before getting new data
-        _dailyNotes.put(currDate.toString(), _currentNote.getText().toString());
+        if (_currentNote.getText() != null) {
+            if (!_currentNote.getText().equals("")) {
+                _dailyNotes.put(currDate.toString(), _currentNote.getText().toString());
+            }
+        }
 
         //update current data
         currCal = eventDay.getCalendar();
@@ -142,12 +146,12 @@ public class DailyLogFragment extends Fragment {
         _currentNote.setText(_dailyNotes.get(currDate.toString()));
         currNote = _dailyNotes.get(currDate.toString());
 
-        Log.i("DailyLogFragment", "After click event Day clicked is: " + eventDay);
-        Log.i("DailyLogFragment", "After clicked _daysRead has: " + _daysRead.size());
-        Log.i("DailyLogFragment", "After clicked currDay is: " + currDate);
-        Log.i("DailyLogFragment", "_daysRead = " + _daysRead);
-        Log.i("DailyLogFragment", "_savedDates = " + _savedDates);
-        Log.i("DailyLogFragment", "after current Note is: " + currNote);
+//        Log.i("DailyLogFragment", "After click event Day clicked is: " + eventDay);
+//        Log.i("DailyLogFragment", "After clicked _daysRead has: " + _daysRead.size());
+//        Log.i("DailyLogFragment", "After clicked currDay is: " + currDate);
+//        Log.i("DailyLogFragment", "_daysRead = " + _daysRead);
+//        Log.i("DailyLogFragment", "_savedDates = " + _savedDates);
+//        Log.i("DailyLogFragment", "after current Note is: " + currNote);
     }
 
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -170,8 +174,8 @@ public class DailyLogFragment extends Fragment {
             _daysRead.remove(selectedCal);
             _savedDates.remove(selectedDate);
         }
-        Log.i("DailyLogFragment", "_dailyLog after toggle = " + _daysRead);
-        Log.i("DailyLogFragment", "_savedDates after toggle = " + _savedDates);
+        //Log.i("DailyLogFragment", "_dailyLog after toggle = " + _daysRead);
+        //Log.i("DailyLogFragment", "_savedDates after toggle = " + _savedDates);
         _CalendarView.setHighlightedDays(_daysRead);
 
         //Sort array and find currentStreak
@@ -211,28 +215,28 @@ public class DailyLogFragment extends Fragment {
     public void findCurrentStreak() {
         int streak = 1;
         if (_savedDates.size() > 0) {
-            Log.i("DailyLogFragment", "Today = " + _today);
-            Log.i("DailyLogFragment", "_savedDates0 = " + _savedDates.get(0));
+//            Log.i("DailyLogFragment", "Today = " + _today);
+//            Log.i("DailyLogFragment", "_savedDates0 = " + _savedDates.get(0));
             if (_savedDates.get(0).compareTo(_today) == 0 || _savedDates.get(0).compareTo(_today.minusDays(1)) == 0) {
                 for (int i = 0; i < _savedDates.size() - 1; i++) {
-                    Log.i("DailyLogFragment", "_savedDates" + i + " = " + _savedDates.get(i));
+//                    Log.i("DailyLogFragment", "_savedDates" + i + " = " + _savedDates.get(i));
                     LocalDate prevDay = _savedDates.get(i).minusDays(1);
-                    Log.i("DailyLogFragment", "Calculated prevDay = " + prevDay);
-                    Log.i("DailyLogFragment", "Calculated _savedDates i+1 = " + _savedDates.get(i + 1));
+//                    Log.i("DailyLogFragment", "Calculated prevDay = " + prevDay);
+//                    Log.i("DailyLogFragment", "Calculated _savedDates i+1 = " + _savedDates.get(i + 1));
                     if (prevDay.compareTo(_savedDates.get(i + 1)) == 0) {
                         streak++;
                     } else {
                         break;
                     }
                 }
-                Log.i("DailyLogFragment", "currStreak = " + streak);
+//                Log.i("DailyLogFragment", "currStreak = " + streak);
                 _currStreak = streak;
                 if (_currStreak > _maxStreak) {
                     _maxStreak = _currStreak;
                 }
             } else {
                 _currStreak = 0;
-                Log.i("DailyLogFragment", "No streak");
+//                Log.i("DailyLogFragment", "No streak");
             }
         }
         else {
@@ -241,15 +245,15 @@ public class DailyLogFragment extends Fragment {
     }
 
     public void checkLongestStreak(){
-        Log.i("DailyLogFragment", "Max Streak Before check = " + _maxStreak);
+//        Log.i("DailyLogFragment", "Max Streak Before check = " + _maxStreak);
         int max = _maxStreak;
         int streak = 1;
         if (_savedDates.size() > 1) {
             for (int i = 0; i < _savedDates.size() - 1; i++) {
                 LocalDate prevDay = _savedDates.get(i).minusDays(1);
                 LocalDate nextDay = _savedDates.get(i + 1);
-                Log.i("DailyLogFragment", "prevDay = " + prevDay);
-                Log.i("DailyLogFragment", "nextDay = " + nextDay);
+//                Log.i("DailyLogFragment", "prevDay = " + prevDay);
+//                Log.i("DailyLogFragment", "nextDay = " + nextDay);
                 if (prevDay.compareTo(nextDay) == 0) {
                     streak++;
                 } else {
@@ -258,14 +262,14 @@ public class DailyLogFragment extends Fragment {
                     }
                     streak = 1;
                 }
-                Log.i("DailyLogFragment", "Looping Streak for max = " + streak);
+//                Log.i("DailyLogFragment", "Looping Streak for max = " + streak);
             }
         }
         if (max < streak){
             max = streak;
         }
         _maxStreak = max;
-        Log.i("DailyLogFragment", "Max Streak after check = " + _maxStreak);
+//        Log.i("DailyLogFragment", "Max Streak after check = " + _maxStreak);
     }
 
     private View.OnClickListener saveButtonListener = new View.OnClickListener() {
@@ -276,6 +280,7 @@ public class DailyLogFragment extends Fragment {
 
     public void saveData(){
         _currentNote.clearFocus();
+
         if (currNote != null) {
             if (!currNote.equals("")) {
                 _dailyNotes.put(currDate.toString(), currNote);

@@ -72,9 +72,9 @@ public class HomeFragment extends Fragment {
         Goal goal = gsonGoal.fromJson(getGoal, Goal.class);
 
 
-        Log.i("GoalLogLogic", "This is the getGoal: " + getGoal);
-        Log.i("GoalLogLogic", "This is the goal: " + goal.toString());
         if(goal != null) {
+            Log.i("GoalLogLogic", "This is the getGoal: " + getGoal);
+            Log.i("GoalLogLogic", "This is the goal: " + goal.toString());
             if (goal.getNumDays() != null) {
                 String _currentNumGoal = goal.getNumDays();
                 String showGoal = "Your Current Goal: " + goal.getNumDays() + " days a week from " +
@@ -82,6 +82,8 @@ public class HomeFragment extends Fragment {
                 _currentGoal.setText(showGoal);
             }
         } else if(goal == null){
+            Log.i("GoalLogLogic", "This is the getGoal: " + getGoal);
+            Log.i("GoalLogLogic", "goal is NULL, unable to show it");
             String noGoal = "No Current Goal Set\n Please set up your goal";
                     _currentGoal.setText(noGoal);
         }
