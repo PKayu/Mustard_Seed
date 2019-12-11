@@ -68,9 +68,11 @@ public class DailyLogFragment extends Fragment {
         _saveButton = (Button) root.findViewById(R.id.saveButton);
         _currentNote = (TextInputEditText) root.findViewById(R.id.noteText);
 
+        //Clear preferences for clean testing
+//        SharedPreferences preferences2 = this.getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
+//        preferences2.edit().clear().commit();
+
         //Load sharedPref
-        SharedPreferences preferences2 = this.getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
-        preferences2.edit().clear().commit();
         SharedPreferences preferences = this.getActivity().getSharedPreferences("prefs", Context.MODE_PRIVATE);
         String gDateString = preferences.getString("dailyLogDateArray", null);
         _maxStreak = preferences.getInt("maxStreak", 0);
@@ -134,10 +136,11 @@ public class DailyLogFragment extends Fragment {
 
         //Save note to map before getting new data
         if (_currentNote.getText() != null) {
-            if (!_currentNote.getText().equals("")) {
+            if (_currentNote.getText().length()>0)  {
                 _dailyNotes.put(currDate.toString(), _currentNote.getText().toString());
             }
         }
+        _currentNote.clearFocus();
 
         //update current data
         currCal = eventDay.getCalendar();
