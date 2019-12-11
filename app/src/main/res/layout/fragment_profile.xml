@@ -67,7 +67,10 @@
         android:hint="@string/setTime"
         android:inputType="textPersonName"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvNotifications6" />
+        app:layout_constraintTop_toBottomOf="@+id/tvNotifications6"
+        android:clickable="true"
+        android:editable="true"
+        android:focusable="false"/>
 
     <Switch
         android:id="@+id/switchEnabled"
