@@ -73,6 +73,7 @@ public class HomeFragment extends Fragment {
 
 
         Log.i("GoalLogLogic", "This is the getGoal: " + getGoal);
+        Log.i("GoalLogLogic", "This is the goal: " + goal.toString());
         if(goal != null) {
             if (goal.getNumDays() != null) {
                 String _currentNumGoal = goal.getNumDays();
@@ -80,8 +81,9 @@ public class HomeFragment extends Fragment {
                         goal.getStartGoal() + " to " + goal.getEndGoal();
                 _currentGoal.setText(showGoal);
             }
-        } else {
-            _currentGoal.setText("No Current Goal Set\n Please set up your goal");
+        } else if(goal == null){
+            String noGoal = "No Current Goal Set\n Please set up your goal";
+                    _currentGoal.setText(noGoal);
         }
 
         //Set current Streak and max Streak on View

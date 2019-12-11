@@ -13,7 +13,7 @@
     <string name="tvCurrent_streak">Curr Streak</string>
     <string name="notes">notes</string>
     <string name="tvLongest_streak">Long Streak</string>
-    <string name="tvCurrent_goal">Current Goal</string>
+    <string name="tvCurrent_goal">No Goal Set</string>
 
     <string name="title_activity_calendar">CalendarActivity</string>
     <string name="readSwitch">Reading Complete?</string>

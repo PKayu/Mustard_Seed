@@ -101,30 +101,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvFavScripture5" />
 
-    <TextView
-        android:id="@+id/tvThemes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/themeHdr"
-        android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvEnabled6" />
-
-    <Spinner
-        android:id="@+id/spThemes"
-        android:layout_width="249dp"
-        android:layout_height="25dp"
-        android:layout_alignBaseline="@+id/tvThemes"
-        android:layout_alignParentRight="true"
-        android:layout_marginStart="16dp"
-        android:layout_toRightOf="@+id/tvThemes"
-        android:entries="@array/theme_array"
-        android:spinnerMode="dropdown"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tvThemes"
-        app:layout_constraintStart_toEndOf="@+id/tvThemes" />
-
     <Button
         android:id="@+id/btnSave"
         android:layout_width="wrap_content"
@@ -134,5 +110,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvThemes" />
+        app:layout_constraintTop_toBottomOf="@+id/tvEnabled6" />
 </androidx.constraintlayout.widget.ConstraintLayout>
